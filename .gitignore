@@ -287,5 +287,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-SharedMemoryDLL.VC.db
-.vs/SharedMemoryDLL/v14/.suo
+
