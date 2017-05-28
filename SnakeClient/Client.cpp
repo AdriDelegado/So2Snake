@@ -1,7 +1,7 @@
 //CLIENTE
 
 
-#include "..\..\SharedMemoryDLL\SnakeOnline\DLL.h"
+#include "../SnakeOnline/DLL.h"
 #include <conio.h>
 #include <process.h>
 
@@ -155,7 +155,7 @@ int _tmain() {
 		}
 		writeMensagem(cdata.pBuf, myText);
 	}
-	_tprintf(TEXT("Cliente vois fechar\n"));
+	_tprintf(TEXT("Cliente vou fechar\n"));
 
 	cdata.ThreadDeveContinuar = 0;
 	WaitForSingleObject(thnd, INFINITE);
