@@ -6,6 +6,7 @@
 #include <tchar.h>
 #include <vector>
 #include <iostream>
+#include"MsgPipe.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ typedef struct {
 	vector<int> map;
 }MAP;
 
-void inicialMap(MAP * map );
+void inicialMap(MAP * map , MSGPIPE * msgpipe);
 
 boolean checkPos(MAP * map, DWORD pos);
 

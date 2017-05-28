@@ -1,7 +1,7 @@
 #include "Map.h"
 
-void inicialMap(MAP * map)
+void inicialMap(MAP * map, MSGPIPE * msgpipe)
 {
-	map->height;
+	msgpipe->
 
 }
