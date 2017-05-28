@@ -6,8 +6,7 @@
 #include <tchar.h>
 #include <vector>
 #include <iostream>
-#include"MsgPipe.h"
-
+#include "MsgPipe.h"
 using namespace std;
 
 
@@ -18,11 +17,10 @@ typedef struct {
 	vector<int> map;
 }MAP;
 
-void inicialMap(MAP * map , MSGPIPE * msgpipe);
+void inicialMap(MAP * mapa, MSGPIPE * mapC);
 
-boolean checkPos(MAP * map, DWORD pos);
+boolean checkPos(DWORD pos);
 
-boolean setItem(MAP * map, DWORD pos);
+boolean setItem(DWORD pos);
 
-int convertCoordenatesIntoPos(MAP * map ,int linhas, int colunas);
-
+int convertCoordenatesIntoPos(int linhas, int colunas);

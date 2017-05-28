@@ -18,23 +18,29 @@ void menuSettingUpGame() {
 	_tprintf(TEXT("Single Player\n"));
 	_tprintf(TEXT("Setting Up The Game\n"));
 
-	_tprintf(TEXT("\t\tPlayer Name:\n"));
+	_tprintf(TEXT("\t\tPlayer Name\n"));
 	_tscanf(TEXT("%s"), &auxPlayer->player_name);
 	_tprintf(TEXT("\t\tMaximum Number of Items on the Fild\n"));
 	_tscanf(TEXT("%s"), &auxGame->max_number_items);
 
-	_tprintf(TEXT("\t\tStarting Size of the Snake\n"));
+	_tprintf(TEXT("\t\tStarting Size of the Snake (MIN 4)(MAX 30)\n"));
 	_tscanf(TEXT("%s"), &auxGame->started_snake_size);
-	_tprintf(TEXT("\t\Game Duration\n"));
+	_tprintf(TEXT("\t\Game Duration (MAX 5000)\n"));
 	_tscanf(TEXT("%s"), &auxGame->game_duration);
-	_tprintf(TEXT("\t\tProbability of rare Items to Spawn\n"));
-	_tscanf(TEXT("%s"), &auxGame->);
-	_tprintf(TEXT("\t\tNumber of Enemy Snakes\n"));
-	//scan
+	_tprintf(TEXT("\t\tProbability of rare Items to Spawn (MIN 0)(MAX 100)\n"));
+	_tscanf(TEXT("%s"), &auxGame->probability_rare_items);
+	_tprintf(TEXT("\t\tNumber of Enemy Snakes (MAX 5)\n"));
+	_tscanf(TEXT("%s"), &auxGame->number_ai_snakes);
 	_tprintf(TEXT("\t\tNumber of Horizontal Tilles\n"));
-	//scan
+	_tscanf(TEXT("%s"), &auxGame->horizontal_sizeX);
 	_tprintf(TEXT("\t\tNumber of Vertical Tilles\n"));
-	//scan
+	_tscanf(TEXT("%s"), &auxGame->vertical_sizeY);
+
+	MSGPIPE *msg = (MSGPIPE *)malloc(sizeof(MSGPIPE));
+
+	msg->game = auxGame;
+	msg->player = auxPlayer;
+	
 }
 
 

@@ -6,9 +6,9 @@
 #include "Snake.h"
 
 typedef struct {
-	GAME * game;
-	ITEM * item;
-	MAP * map;
-	PLAYER * player;
-	SNAKE * snake;
+	GAME game;
+	ITEM item;
+	MAP map;
+	PLAYER *player;
+	SNAKE *snake;
 }MSGPIPE;

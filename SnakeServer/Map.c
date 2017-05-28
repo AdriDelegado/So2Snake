@@ -1,7 +1,7 @@
+#pragma once
+
+#include "MsgPipe.h"
 #include "Map.h"
-
-void inicialMap(MAP * map, MSGPIPE * msgpipe)
-{
-	msgpipe->
-
+void inicialMap(MAP * mapa, MSGPIPE * mapC) {
+	mapa->height = mapC->map.
 }
