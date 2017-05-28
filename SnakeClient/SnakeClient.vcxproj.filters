@@ -33,6 +33,12 @@
     <ClCompile Include="Snake.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ClientMenu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsgPipe.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Snake.h">
@@ -48,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsgPipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

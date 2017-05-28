@@ -143,16 +143,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientMenu.c" />
     <ClCompile Include="Game.c" />
     <ClCompile Include="Item.c" />
     <ClCompile Include="Map.c" />
+    <ClCompile Include="MsgPipe.c" />
     <ClCompile Include="Player.c" />
     <ClCompile Include="Snake.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientMenu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MsgPipe.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Snake.h" />
   </ItemGroup>
