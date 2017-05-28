@@ -10,4 +10,3 @@
 #define O-OLEO 9
 #define O-COLA 10
 #define EXAME 11
-#define SNAKE 12

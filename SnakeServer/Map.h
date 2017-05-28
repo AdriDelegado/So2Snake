@@ -17,10 +17,11 @@ typedef struct {
 	vector<int> map;
 }MAP;
 
-void inicialMap(DWORD height, DWORD width);
+void inicialMap(MAP * map );
 
-boolean checkPos(DWORD pos);
+boolean checkPos(MAP * map, DWORD pos);
 
-boolean setItem(DWORD pos);
+boolean setItem(MAP * map, DWORD pos);
 
-int convertCoordenatesIntoPos(int linhas, int colunas);
+int convertCoordenatesIntoPos(MAP * map ,int linhas, int colunas);
+

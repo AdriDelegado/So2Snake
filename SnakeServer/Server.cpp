@@ -2,6 +2,7 @@
 #include "../SnakeOnline/DLL.h"
 #include <conio.h>
 #include <process.h>
+#include "Map.h"
 
 
 //TCHAR szNAME[] = TEXT("fmMsgSpace");
@@ -102,6 +103,8 @@ int _tmain() {
 	ContrData cdata;
 	unsigned tid;
 	HANDLE thnd;
+	MAP * map = (MAP *)malloc(sizeof(MAP));
+
 
 	_tprintf(TEXT("Servifor de msg a iniciar. \n"));
 	_tprintf(TEXT("Vou Criar Memoria Partilhada. \n "));
