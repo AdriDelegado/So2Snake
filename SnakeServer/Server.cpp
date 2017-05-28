@@ -1,5 +1,5 @@
 //SERVIDOR
-#include "..\..\SharedMemoryDLL\SnakeOnline\DLL.h"
+#include "../SnakeOnline/DLL.h"
 #include <conio.h>
 #include <process.h>
 
