@@ -1,13 +1,78 @@
 ﻿  Client.cpp
-c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeclient\client.cpp(36): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeclient\client.cpp(149): warning C4996: 'wscanf': This function or variable may be unsafe. Consider using wscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\adrie\desktop\so2snake\snakeclient\game.h(19): error C2143: syntax error: missing ';' before '}'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(76): error C3861: 'startGameDefinition': identifier not found
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(141): error C2065: 'GameDefinition': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(141): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(141): error C2059: syntax error: ')'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): error C2227: left of '->playerName' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): error C2227: left of '->nLocalPlayers' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): error C2227: left of '->nMaxPlayers' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): error C2227: left of '->nSnakes' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): error C2227: left of '->nObjects' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): error C2227: left of '->snakeSize' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): error C2227: left of '->duration' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): error C2227: left of '->objectProbability' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): error C2227: left of '->gameSizeX' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): error C2227: left of '->gameSizeY' must point to class/struct/union/generic type
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): note: type is 'unknown-type'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(166): error C2065: 'aux': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(167): error C2065: 'GameDefinition': undeclared identifier
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): warning C4473: 'wscanf' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): note: the missing variadic argument 1 is required by format string '%s'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(144): warning C4996: 'wscanf': This function or variable may be unsafe. Consider using wscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstdio.h(928): note: see declaration of 'wscanf'
-  Snake.c
-  Player.c
-  Map.c
-  Item.c
-  Game.c
-  Generating Code...
-  SnakeClient.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeClient.exe
-  SnakeClient.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeClient.pdb (Full PDB)
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): warning C4473: 'wscanf' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(146): warning C4996: 'wscanf': This function or variable may be unsafe. Consider using wscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstdio.h(928): note: see declaration of 'wscanf'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): warning C4473: 'wscanf' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(148): warning C4996: 'wscanf': This function or variable may be unsafe. Consider using wscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstdio.h(928): note: see declaration of 'wscanf'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(150): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(152): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(154): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(156): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(158): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(160): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): warning C4473: 'wscanf_s' : not enough arguments passed for format string
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(162): note: the missing variadic argument 1 is required by format string '%d'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(200): warning C4305: 'return': truncation from 'int' to 'bool'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(226): warning C4305: 'return': truncation from 'int' to 'bool'
+c:\users\adrie\desktop\so2snake\snakeclient\client.cpp(185): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'

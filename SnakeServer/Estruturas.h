@@ -32,7 +32,6 @@ typedef struct {
 	DWORD height;
 	DWORD width;
 	DWORD **tiles;
-	vector<int> map;
 }MAP;
 
 typedef struct {

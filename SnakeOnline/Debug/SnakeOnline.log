@@ -1,8 +1,5 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SnakeOnline.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   DLL.cpp
-c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeonline\dll.cpp(7): warning C4273: 'createSharedMemory': inconsistent dll linkage
-  c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeonline\dll.h(29): note: see previous definition of 'createSharedMemory'
-c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeonline\dll.cpp(38): warning C4715: 'createSharedMemory': not all control paths return a value
-     Creating library C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeDLL.lib and object C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeDLL.exp
-  SnakeOnline.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeDLL.dll
-  SnakeOnline.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeDLL.pdb (Full PDB)
+c:\users\adrie\desktop\so2snake\snakeserver\game.h(19): error C2143: syntax error: missing ';' before '}'
+c:\users\adrie\desktop\so2snake\snakeonline\dll.cpp(7): warning C4273: 'createSharedMemory': inconsistent dll linkage
+  c:\users\adrie\desktop\so2snake\snakeonline\dll.h(29): note: see previous definition of 'createSharedMemory'

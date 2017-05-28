@@ -5,7 +5,6 @@
   Game.c
   Generating Code...
   Server.cpp
-c:\users\adrie\desktop\trabadriel\snake\sharedmemorydll\snakeserver\server.cpp(48): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\adrie\desktop\so2snake\snakeserver\game.h(19): error C2143: syntax error: missing ';' before '}'
+c:\users\adrie\desktop\so2snake\snakeserver\server.cpp(48): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-  SnakeServer.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeServer.exe
-  SnakeServer.vcxproj -> C:\Users\adrie\Desktop\TrabAdriel\Snake\SharedMemoryDLL\Debug\SnakeServer.pdb (Full PDB)

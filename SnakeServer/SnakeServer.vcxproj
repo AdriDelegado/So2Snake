@@ -144,7 +144,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Map.c" />
     <ClCompile Include="MsgPipe.c" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
@@ -156,7 +155,6 @@
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Estruturas.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="MsgPipe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

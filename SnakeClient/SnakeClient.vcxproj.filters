@@ -18,21 +18,6 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Snake.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ClientMenu.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -41,25 +26,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Snake.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ClientMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MsgPipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Estruturas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
