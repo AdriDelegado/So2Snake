@@ -26,9 +26,9 @@ void menuSettingUpGame() {
 	_tprintf(TEXT("\t\tStarting Size of the Snake\n"));
 	_tscanf(TEXT("%s"), &auxGame->started_snake_size);
 	_tprintf(TEXT("\t\Game Duration\n"));
-	//scan
+	_tscanf(TEXT("%s"), &auxGame->game_duration);
 	_tprintf(TEXT("\t\tProbability of rare Items to Spawn\n"));
-	//scan
+	_tscanf(TEXT("%s"), &auxGame->);
 	_tprintf(TEXT("\t\tNumber of Enemy Snakes\n"));
 	//scan
 	_tprintf(TEXT("\t\tNumber of Horizontal Tilles\n"));
