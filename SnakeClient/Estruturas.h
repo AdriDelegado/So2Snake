@@ -58,12 +58,3 @@ typedef struct {
 	DWORD coordinate_y;
 }SNAKE;
 
-
-
-void inicialMap(DWORD height, DWORD width);
-
-boolean checkPos(DWORD pos);
-
-boolean setItem(DWORD pos);
-
-int convertCoordenatesIntoPos(int linhas, int colunas);

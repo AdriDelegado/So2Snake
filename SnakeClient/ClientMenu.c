@@ -2,9 +2,6 @@
 
 
 void mainMenu() {
-
-
-	
 	_tprintf(TEXT("BEM VINDO\n"));
 	_tprintf(TEXT("\t\tSingle Player\t-1-\n"));
 	_tprintf(TEXT("\t\tMultiPlayer\t-2-\n"));
@@ -42,7 +39,6 @@ void menuSettingUpGame() {
 	msg->player = auxPlayer;
 	
 }
-
 
 void menuMultiplayer1() {
 
