@@ -6,7 +6,7 @@
 #include <string.h>
 #include <tchar.h>
 #include <memory.h> 
-#include "..\SnakeServer\Game.h"
+#include "..\SnakeServer\Estruturas.h"
 
 #define SHMEMSIZE 4096
 #define GAMEBUFSIZE sizeof(GAME)

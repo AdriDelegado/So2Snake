@@ -1,9 +1,6 @@
 #pragma once
-#include "Game.h"
-#include "Item.h"
-#include "Map.h"
-#include "Player.h"
-#include "Snake.h"
+#include "Estruturas.h"
+
 
 typedef struct {
 	GAME *game;

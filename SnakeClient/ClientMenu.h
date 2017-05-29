@@ -4,8 +4,6 @@
 #include <io.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include "Game.h"
-#include "Player.h"
 #include	"MsgPipe.h"
 void mainMenu();
 void menuSettingUpGame();

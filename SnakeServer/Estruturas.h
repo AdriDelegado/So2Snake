@@ -29,8 +29,8 @@ typedef struct {
 
 
 typedef struct {
-	DWORD height;
-	DWORD width;
+	int height;
+	int width;
 	DWORD **tiles;
 }MAP;
 
@@ -60,10 +60,3 @@ typedef struct {
 
 
 
-void inicialMap(DWORD height, DWORD width);
-
-boolean checkPos(DWORD pos);
-
-boolean setItem(DWORD pos);
-
-int convertCoordenatesIntoPos(int linhas, int colunas);
