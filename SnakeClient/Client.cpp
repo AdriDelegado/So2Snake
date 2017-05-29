@@ -73,7 +73,7 @@ int _tmain(int argc, TCHAR *argv[]) {
 	//Verifica se o Servidor já tem algum Cliente Registado
 	if (verifyIfFirst(hPipe, TEXT("first")) == true) {
 		//Configura a partida se for o primeiro Cliente
-		startGameDefinition(hPipe);
+		startMenus(hPipe);
 	}
 
 	//Configura os botões com o quais vai jogar
@@ -135,36 +135,15 @@ int _tmain(int argc, TCHAR *argv[]) {
 	return 0;
 }
 //Fazer a verificação dos dados pedidos, se o utilizador exceder os valores utilizar os valores default presentes no DEFINE no .h
-int startGameDefinition(HANDLE hPipe) {
+int startMenus(HANDLE hPipe) {
 	BOOL fSucess = FALSE;
 	DWORD cbToWrite, cbWritten;
-	GameDefinition * aux = (GameDefinition *)malloc(sizeof(GameDefinition));
-
-	_tprintf(TEXT("Insira o seu Username: \n"));
-	_tscanf(TEXT("%s"), &aux->playerName);
-	_tprintf(TEXT("Quantos jogadores vão jogar localmente? (1/2) \n"));
-	_tscanf(TEXT("%d"), &aux->nLocalPlayers);
-	_tprintf(TEXT("Numero máximo de jogadores humanos: (MAX 20)\n"));
-	_tscanf(TEXT("%d"), &aux->nMaxPlayers);
-	_tprintf(TEXT("Numero de Cobras automaticas: (MAX 5)\n"));
-	_tscanf_s(TEXT("%d"), &aux->nSnakes);
-	_tprintf(TEXT("Numero total de objectos: (MAX 20)\n"));
-	_tscanf_s(TEXT("%d"), &aux->nObjects);
-	_tprintf(TEXT("Tamanho inicial de serpentes: (MAX 5)\n"));
-	_tscanf_s(TEXT("%d"), &aux->snakeSize);
-	_tprintf(TEXT("Duração da partida em segundos: (MIN 1000)(MAX 5000)\n"));
-	_tscanf_s(TEXT("%d"), &aux->duration);
-	_tprintf(TEXT("Probabilidade de objetos: (0%%-100%%)\n"));
-	_tscanf_s(TEXT("%d"), &aux->objectProbability);
-	_tprintf(TEXT("Tamanho do tabuleiro horizontalmente: (MAX 80)\n"));
-	_tscanf_s(TEXT("%d"), &aux->gameSizeX);
-	_tprintf(TEXT("Tamanho do tabuleiro verticalmente: (MAX 40)\n"));
-	_tscanf_s(TEXT("%d"), &aux->gameSizeY);
-
+	MSGPIPE *msg = (MSGPIPE*)malloc(sizeof(MSGPIPE));
+	msg = mainMenu(msg);
 	fSucess = WriteFile(
 		hPipe, //handle do pipe
-		aux, //mensagem
-		sizeof(GameDefinition), //comprimento da mensagem
+		msg, //mensagem
+		sizeof(MSGPIPE), //comprimento da mensagem
 		&cbWritten, //ptr para guardar numero de bytes escritos
 		NULL);
 

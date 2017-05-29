@@ -8,8 +8,9 @@
 #include "..\SnakeServer\Constants.h"
 
 
-void mainMenu();
-void menuSettingUpGame(int requestCode);
-void menuMultiplayer1();
-
-void menuMultiplayer2();
+MSGPIPE *menuMultiplayer1(MSGPIPE * msg);
+MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg);
+MSGPIPE *createPlayer(MSGPIPE *msg);
+BOOLEAN	verifySettingRequest(int request, int valueToVerify);
+MSGPIPE *defineNewKeys(MSGPIPE *msg);
+MSGPIPE *mainMenu(MSGPIPE *msg);

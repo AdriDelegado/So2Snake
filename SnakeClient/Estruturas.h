@@ -9,7 +9,7 @@
 typedef struct {
 	char playerCreator_name[20];
 	DWORD number_players;
-
+	BOOLEAN gameExist;
 	DWORD max_number_items;
 	DWORD started_snake_size;
 	DWORD game_duration;

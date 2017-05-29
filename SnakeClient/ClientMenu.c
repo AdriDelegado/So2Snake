@@ -1,24 +1,37 @@
 #include "ClientMenu.h"
 
 
-void mainMenu() {
+MSGPIPE *mainMenu(MSGPIPE *msg) {
 
-
+	int v = 0;
 
 	_tprintf(TEXT("BEM VINDO\n"));
+
 	_tprintf(TEXT("\t\tSingle Player\t-1-\n"));
 	_tprintf(TEXT("\t\tMultiPlayer\t-2-\n"));
+	do {
+		_tscanf(" %d", &v);
+	} while (v != 1 || v != 2);
+
+	if (v == 1) {
+		msg = menuSettingUpGame(1, msg);
+	}
+	else if (v == 2) {
+		msg = menuMultiplayer1(msg);
+	}
+
+	return msg;
 }
 
-MSGPIPE* menuSettingUpGame(int requestCode) {
+MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg) {
 
 	GAME * auxGame = (GAME *)malloc(sizeof(GAME));
 
-	_tprintf(TEXT("Single Player\n"));
 	_tprintf(TEXT("Setting Up The Game\n"));
 
-	_tprintf(TEXT("\t\tPlayer Name\n"));
-	_tscanf(TEXT("%s"), &auxGame->playerCreator_name);
+	createPlayer(msg);
+
+	_tcscpy(auxGame->playerCreator_name, msg->player->player_name);
 
 	do {
 		_tprintf(TEXT("\t\tMaximum Number of Items on the Fild (MIN 0)(MAX 10)\n"));
@@ -66,19 +79,18 @@ MSGPIPE* menuSettingUpGame(int requestCode) {
 			_tscanf(TEXT("%d"), &auxGame->number_players);
 		} while (verifySettingRequest(8, auxGame->number_players));
 	}
-	MSGPIPE *msg = (MSGPIPE *)malloc(sizeof(MSGPIPE));
+
 
 	msg->game = auxGame;
 
 	return msg;
 }
 
-
-void menuMultiplayer1(BOOLEAN alreadyExistGame) {
+MSGPIPE *menuMultiplayer1( MSGPIPE * msg) {
 	int v = 0;
 	int d = 0;
 	_tprintf(TEXT("Multiplayer\n"));
-	if (alreadyExistGame == TRUE) {
+	if (msg->game->gameExist == TRUE) {
 		do {
 			_tprintf(TEXT("\t\tJoin a Game\t-1-"));
 			d = 2;
@@ -93,21 +105,22 @@ void menuMultiplayer1(BOOLEAN alreadyExistGame) {
 
 	}
 	if (d == 1) {
-		menuSettingUpGame(2);
+		_tprintf(TEXT("Host Game\n"));
+		menuSettingUpGame(2, msg);
 	}
 	else {
-		createPlayer();
+		_tprintf(TEXT("Join Game\n"));
+		createPlayer(msg);
 	}
 
 }
 
-MSGPIPE *createPlayer() {
+MSGPIPE *createPlayer(MSGPIPE *msg) {
 	PLAYER *auxPlayer = (PLAYER*)malloc(sizeof(PLAYER));
-	MSGPIPE *msg = (MSGPIPE *)malloc(sizeof(MSGPIPE));
 	int v = 0;
 
+	_tprintf(TEXT("Creating Player\n"));
 
-	_tprintf(TEXT("Join Game\n"));
 	_tprintf(TEXT("\t\tPlayer Name\n"));
 	_tscanf(TEXT("%s"), &auxPlayer->player_name);
 
@@ -116,21 +129,17 @@ MSGPIPE *createPlayer() {
 	_tprintf(TEXT("\t\tUse Default Keys to control the snake ? (1-YES) (2-NO)\n"));
 	_tscanf(TEXT("%d"), &v);
 	if (v == 1) {
-		auxPlayer->down_key = ;
-		auxPlayer->left_key = ;
-		auxPlayer->rigth_key = ;
-		auxPlayer->up_key = ;
+		auxPlayer->down_key = KEY_DOWN;
+		auxPlayer->left_key = KEY_LEFT;
+		auxPlayer->rigth_key = KEY_RIGHT;
+		auxPlayer->up_key = KEY_UP;
+	}
+	else {
+		msg = defineNewKeys(msg);
 	}
 
-
-
-
-
-
-
-
 	msg->player = auxPlayer;
-
+	return msg;
 
 }
 
@@ -187,5 +196,68 @@ BOOLEAN	verifySettingRequest(int request, int valueToVerify) {
 	}
 	_tprintf(TEXT("\t\tError: value out of bound, try again.\n"));
 	return FALSE;
+
+}
+
+MSGPIPE *defineNewKeys(MSGPIPE *msg) {
+	BOOLEAN v = FALSE;
+	int c = 0;
+	char up;
+	char down;
+	char left;
+	char right;
+	do {
+		_tprintf(TEXT("insert key to go UP\n"));
+		_tscanf(TEXT("%c"), &up);
+		msg->player->up_key = (int)up;
+		_tprintf(TEXT("CONFIRM (1-Yes)(2-NO)\n"));
+		_tscanf(TEXT("%d"), &c);
+		if (c == 1) {
+			v = TRUE;
+		}
+	} while (v != TRUE);
+	v = FALSE;
+	int c = 0;
+	do {
+		_tprintf(TEXT("insert key to go RIGHT\n"));
+		_tscanf(TEXT("%c"), &right);
+		msg->player->up_key = (int)right;
+		_tprintf(TEXT("CONFIRM (1-Yes)(2-NO)\n"));
+		_tscanf(TEXT("%d"), &c);
+		if (c == 1) {
+			v = TRUE;
+		}
+	} while (v != TRUE);
+	v = FALSE;
+	int c = 0;
+	do {
+		_tprintf(TEXT("insert key to go DOWN\n"));
+		_tscanf(TEXT("%c"), &down);
+		msg->player->up_key = (int)down;
+		_tprintf(TEXT("CONFIRM (1-Yes)(2-NO)\n"));
+		_tscanf(TEXT("%d"), &c);
+		if (c == 1) {
+			v = TRUE;
+		}
+	} while (v != TRUE);
+	v = FALSE;
+	int c = 0;
+	do {
+		_tprintf(TEXT("insert key to go LEFT\n"));
+		_tscanf(TEXT("%c"), &left);
+		msg->player->up_key = (int)left;
+		_tprintf(TEXT("CONFIRM (1-Yes)(2-NO)\n"));
+		_tscanf(TEXT("%d"), &c);
+		if (c == 1) {
+			v = TRUE;
+		}
+	} while (v != TRUE);
+
+
+
+
+
+
+	return msg;
 
 }

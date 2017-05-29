@@ -3,11 +3,11 @@
 
 
 typedef struct {
-	GAME game;
-	ITEM item;
-	MAP map;
+	GAME *game;
+
+	MAP *map;
 	PLAYER *player;
-	SNAKE *snake;
+
 }MSGPIPE;
 
 void inicialMap(MSGPIPE * msgpipe, MAP * map);
