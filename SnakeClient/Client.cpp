@@ -153,7 +153,7 @@ int startGameDefinition(HANDLE hPipe) {
 	_tscanf_s(TEXT("%d"), &aux->nObjects);
 	_tprintf(TEXT("Tamanho inicial de serpentes: (MAX 5)\n"));
 	_tscanf_s(TEXT("%d"), &aux->snakeSize);
-	_tprintf(TEXT("Duração da partida em segundos: (MAX 5000)\n"));
+	_tprintf(TEXT("Duração da partida em segundos: (MIN 1000)(MAX 5000)\n"));
 	_tscanf_s(TEXT("%d"), &aux->duration);
 	_tprintf(TEXT("Probabilidade de objetos: (0%%-100%%)\n"));
 	_tscanf_s(TEXT("%d"), &aux->objectProbability);
