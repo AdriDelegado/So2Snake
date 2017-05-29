@@ -7,9 +7,9 @@
 #include <tchar.h>
 
 typedef struct {
-	DWORD max_number_players[20];
+	DWORD number_players[20];
 
-	char max_number_items;
+	DWORD max_number_items;
 	DWORD started_snake_size;
 	DWORD game_duration;
 	DWORD probability_rare_items;
