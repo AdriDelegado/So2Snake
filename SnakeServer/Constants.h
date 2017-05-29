@@ -30,3 +30,10 @@
 
 #define MAX_NUMBER_PLAYER 20
 #define MIN_NUMBER_PLAYER 2
+
+
+//directional keys
+#define KEY_LEFT  0x25
+#define KEY_UP  0x26
+#define KEY_RIGHT  0x27
+#define KEY_DOWN 0x28

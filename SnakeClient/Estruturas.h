@@ -13,7 +13,7 @@ typedef struct {
 	DWORD max_number_items;
 	DWORD started_snake_size;
 	DWORD game_duration;
-	DWORD probability_rare_items;
+	FLOAT probability_rare_items;
 	DWORD number_ai_snakes;
 	DWORD horizontal_sizeX;
 	DWORD vertical_sizeY;

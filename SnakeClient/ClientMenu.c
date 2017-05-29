@@ -22,37 +22,37 @@ MSGPIPE* menuSettingUpGame(int requestCode) {
 
 	do {
 		_tprintf(TEXT("\t\tMaximum Number of Items on the Fild (MIN 0)(MAX 10)\n"));
-		_tscanf(TEXT("%s"), &auxGame->max_number_items);
+		_tscanf(TEXT("%d"), &auxGame->max_number_items);
 	} while (verifySettingRequest(1, auxGame->max_number_items));
 
 	do {
 		_tprintf(TEXT("\t\tStarting Size of the Snake (MIN 4)(MAX 30)\n"));
-		_tscanf(TEXT("%s"), &auxGame->started_snake_size);
+		_tscanf(TEXT("%d"), &auxGame->started_snake_size);
 	} while (verifySettingRequest(2, auxGame->started_snake_size));
 
 	do {
 		_tprintf(TEXT("\t\Game Duration (MIN 1000)(MAX 5000)\n"));
-		_tscanf(TEXT("%s"), &auxGame->game_duration);
+		_tscanf(TEXT("%d"), &auxGame->game_duration);
 	} while (verifySettingRequest(3, auxGame->game_duration));
 
 	do {
 		_tprintf(TEXT("\t\tProbability of rare Items to Spawn (MIN 0)(MAX 100)\n"));
-		_tscanf(TEXT("%s"), &auxGame->probability_rare_items);
+		_tscanf(TEXT("%f"), &auxGame->probability_rare_items);
 	} while (verifySettingRequest(4, auxGame->probability_rare_items));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Enemy Snakes (MIN 0)(MAX 5)\n"));
-		_tscanf(TEXT("%s"), &auxGame->number_ai_snakes);
+		_tscanf(TEXT("%d"), &auxGame->number_ai_snakes);
 	} while (verifySettingRequest(5, auxGame->number_ai_snakes));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Horizontal Tilles (MIN 10)(MAX 80)\n"));
-		_tscanf(TEXT("%s"), &auxGame->horizontal_sizeX);
+		_tscanf(TEXT("%d"), &auxGame->horizontal_sizeX);
 	} while (verifySettingRequest(6, auxGame->number_ai_snakes));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Vertical Tilles (MIN 5)(MAX 40)\n"));
-		_tscanf(TEXT("%s"), &auxGame->vertical_sizeY);
+		_tscanf(TEXT("%d"), &auxGame->vertical_sizeY);
 	} while (verifySettingRequest(7, auxGame->vertical_sizeY));
 
 
@@ -63,25 +63,74 @@ MSGPIPE* menuSettingUpGame(int requestCode) {
 	if (requestCode == 2) {
 		do {
 			_tprintf(TEXT("\t\tMaximum number of players (MIN 2)(MAX 20)\n"));
-			_tscanf(TEXT("%s"), &auxGame->number_players);
+			_tscanf(TEXT("%d"), &auxGame->number_players);
 		} while (verifySettingRequest(8, auxGame->number_players));
 	}
 	MSGPIPE *msg = (MSGPIPE *)malloc(sizeof(MSGPIPE));
 
 	msg->game = auxGame;
-	
+
 	return msg;
 }
 
 
-void menuMultiplayer1() {
-
+void menuMultiplayer1(BOOLEAN alreadyExistGame) {
+	int v = 0;
+	int d = 0;
 	_tprintf(TEXT("Multiplayer\n"));
-	_tprintf(TEXT("\t\tHost a Game\t-1-"));
-	_tprintf(TEXT("\t\tJoin a Game\t-2-"));
+	if (alreadyExistGame == TRUE) {
+		do {
+			_tprintf(TEXT("\t\tJoin a Game\t-1-"));
+			d = 2;
+		} while (v != 1);
+
+	}
+	else {
+		do {
+			_tprintf(TEXT("\t\tHost a Game\t-1-"));
+			d = 1;
+		} while (v != 1);
+
+	}
+	if (d == 1) {
+		menuSettingUpGame(2);
+	}
+	else {
+		createPlayer();
+	}
+
 }
 
-void menuMultiplayer2() {
+MSGPIPE *createPlayer() {
+	PLAYER *auxPlayer = (PLAYER*)malloc(sizeof(PLAYER));
+	MSGPIPE *msg = (MSGPIPE *)malloc(sizeof(MSGPIPE));
+	int v = 0;
+
+
+	_tprintf(TEXT("Join Game\n"));
+	_tprintf(TEXT("\t\tPlayer Name\n"));
+	_tscanf(TEXT("%s"), &auxPlayer->player_name);
+
+
+
+	_tprintf(TEXT("\t\tUse Default Keys to control the snake ? (1-YES) (2-NO)\n"));
+	_tscanf(TEXT("%d"), &v);
+	if (v == 1) {
+		auxPlayer->down_key = ;
+		auxPlayer->left_key = ;
+		auxPlayer->rigth_key = ;
+		auxPlayer->up_key = ;
+	}
+
+
+
+
+
+
+
+
+	msg->player = auxPlayer;
+
 
 }
 
