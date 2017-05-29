@@ -134,6 +134,7 @@ int _tmain(int argc, TCHAR *argv[]) {
 
 	return 0;
 }
+
 //Fazer a verificação dos dados pedidos, se o utilizador exceder os valores utilizar os valores default presentes no DEFINE no .h
 int startMenus(HANDLE hPipe) {
 	BOOL fSucess = FALSE;

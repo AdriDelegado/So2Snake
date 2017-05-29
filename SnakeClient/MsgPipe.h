@@ -9,3 +9,4 @@ typedef struct {
 	PLAYER *player;
 	
 }MSGPIPE;
+

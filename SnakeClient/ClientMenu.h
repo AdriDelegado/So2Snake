@@ -4,7 +4,7 @@
 #include <io.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include	"MsgPipe.h"
+#include "MsgPipe.h"
 #include "..\SnakeServer\Constants.h"
 
 
