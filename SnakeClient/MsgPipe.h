@@ -1,12 +1,15 @@
 #pragma once
+//CLIENTE
 #include "Estruturas.h"
 
 
 typedef struct {
 	GAME *game;
-	
 	MAP *map;
 	PLAYER *player;
-	
-}MSGPIPE;
+	HANDLE hPipe;
+	HANDLE  hThread;
+	DWORD dwThreadID;
+	LPTSTR lpszPipename;
+}MSGPIPECLIENTE;
 

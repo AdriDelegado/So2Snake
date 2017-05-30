@@ -8,27 +8,27 @@
 #define BUFSIZE 4096
 #define kBufferSize 512
 
-MSGPIPE *iniciaMenssagem(MSGPIPE *msg);
-
+MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg);
+DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam);
+void SendClientMessage(HANDLE hPipe, TCHAR * message);
+void ReceiveClientMessage(HANDLE hPipe);
 
 int _tmain(int argc, TCHAR *argv[]) {
 	BOOL fConnected = FALSE;
-	DWORD dwThreadID = 0;
-	HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = 0;
-	LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\pipeSnake");
 
 #ifdef UNICODE
 	_setmode(_fileno(stdin), _O_WTEXT);
 	_setmode(_fileno(stdout), _O_WTEXT);
 #endif
-	MSGPIPE *msg = (MSGPIPE*)malloc(sizeof(MSGPIPE));
+
+	MSGPIPESERVIDOR *msg = (MSGPIPESERVIDOR*)malloc(sizeof(MSGPIPESERVIDOR));
 	msg = iniciaMenssagem(msg);
 
 	while (TRUE) {
 		_tprintf(TEXT("SERVIDOR - Bem vindo ao servidor do Snake em Win32\n"));
 
-		hPipe = CreateNamedPipe(
-			lpszPipename, //nome do pipe
+		msg->hPipe = CreateNamedPipe(
+			msg->lpszPipename, //nome do pipe
 			PIPE_ACCESS_DUPLEX, // Pipe de acesso read and write
 			PIPE_TYPE_MESSAGE | //pipe do tipo message
 			PIPE_READMODE_MESSAGE | //pipe do tipo read message
@@ -39,7 +39,7 @@ int _tmain(int argc, TCHAR *argv[]) {
 			0, // timeout
 			NULL); // security params
 
-		if (hPipe == INVALID_HANDLE_VALUE) {
+		if (msg->hPipe == INVALID_HANDLE_VALUE) {
 			_tprintf(TEXT("SERVIDOR - Erro na criação do NamedPipe, erro = %d\n"), GetLastError());
 			return -1; //Qualquer valor diferente de 0 ou 0 representa sucesso, apenas o -1 faz o prog sair.
 		}
@@ -48,40 +48,40 @@ int _tmain(int argc, TCHAR *argv[]) {
 		_tprintf(TEXT("SERVIDOR - À espera de Clientes...\n\n"));
 
 		//é null pq no connectednamedpipe, porque não vão ser precisas operações de I/O Overlapsed
-		fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
+		fConnected = ConnectNamedPipe(msg->hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
 
 		if (fConnected) // Se já existe algum client connected trata-o
 		{
 			_tprintf(TEXT("SERVIDOR - Cliente Ligado, Criando Thread...\n"));
 
 			//Cria a Thread para o cliente
-			hThread = CreateThread(
+			msg->hThread = CreateThread(
 				NULL, //security params
 				0, // size da pilha
 				ThreadAtendeCliente, // função da thread
-				(LPVOID)hPipe, // handle para a thread
+				(LPVOID)msg->hPipe, // handle para a thread
 				0, // nao suspensa
-				&dwThreadID); // ptr onde guarda o id da thread a criar
+				&msg->dwThreadID); // ptr onde guarda o id da thread a criar
 
-			if (hThread == NULL) {
+			if (msg->hThread == NULL) {
 				_tprintf(TEXT("SERVIDOR - Erro na Criação da Thread. Erro = %d.\n"), GetLastError());
 				return -1;
 			}
 			else // correu tudo bem
-				CloseHandle(hThread);
+				CloseHandle(msg->hThread);
 		}
 		//Cliente nao se consegui ligar - fechar o pipe
 		else
-			CloseHandle(hPipe);
+			CloseHandle(msg->hPipe);
 	}
 	return 0; //Fecha o server
 }
 
-DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam, MSGPIPE * msg) {
+DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam) {
 	HANDLE hHeap = GetProcessHeap(); //aloca espaço para o pedido no heap
 	TCHAR * pchRequest = (TCHAR*)HeapAlloc(hHeap, 0, BUFSIZE * sizeof(TCHAR)); //alloca espaço para a resposta no heap
 	TCHAR * pchReply = (TCHAR*)HeapAlloc(hHeap, 0, BUFSIZE * sizeof(TCHAR)); //alloca espaço para a resposta no heap
-	GameDefinition * game = (GameDefinition *)malloc(sizeof(GameDefinition));
+	//GameDefinition * game = (GameDefinition *)malloc(sizeof(GameDefinition));
 	DWORD cbBytesRead = 0, cbReplyBytes = 0, cbWritten = 0;
 	BOOL fSucess = FALSE;
 	HANDLE hPipe = NULL;
@@ -112,8 +112,6 @@ DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam, MSGPIPE * msg) {
 
 	_tprintf(TEXT("THREAD - Thread para atender cliente criada,\n\tA voltar ao ciclo do Servidor--\n"));
 
-	//Inicializa as funções presentes na DLL
-	ConfigureDLLFunctions();
 
 	hPipe = (HANDLE)lpvParam;
 
@@ -123,25 +121,7 @@ DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam, MSGPIPE * msg) {
 	_tprintf(TEXT("THREAD - Sai do receive client\n"));
 
 	//Vai á memoria partilhada ver se é o primeiro player, se for recebe a estrutura com o jogo configurado!
-	if (verificaJogadores() == 0) {
-		do {
-			fSucess = ReadFile(
-				hPipe, //nome do pipe
-				game,//buffer para recever a mensagem
-				sizeof(GameDefinition), //tamanho de bytes a ler
-				&cbBytesRead, // ptr onde guardar o numero de bytes lidos
-				NULL); //not overlapped
 
-			if (!fSucess && GetLastError() != ERROR_MORE_DATA)
-				break;
-
-		} while (!fSucess); //Continua até ainda ter dados para ler
-
-		if (!fSucess) {
-			_tprintf(TEXT("ReadFile Falhou. Erro = %d\n"), GetLastError());
-			return -1;
-		}
-	}
 
 	//Configura o Jogo na memoria partilhada com os dados recebidos
 
@@ -172,16 +152,7 @@ DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam, MSGPIPE * msg) {
 		//addPlayer(pchRequest);
 		//verificaJogadores();
 
-		//Se a mensagem retornar true, vai mandar o cliente sair do ciclo
-		if (comando(pchRequest) == TRUE) {
-			//_tprintf(TEXT("THREAD - Cliente a sair\n"));
-			_tprintf(TEXT("THREAD - Cliente é o primeiro\n"));
-			_tcscpy(pchReply, TEXT("sim"));
-		}
-		else {
-			_tprintf(TEXT("THREAD - Cliente não é o primeiro\n"));
-			_tcscpy(pchReply, pchRequest);
-		}
+	
 
 		//processa-se a mensagem recebida
 		//faz-se alguma coisa com ela
@@ -204,8 +175,7 @@ DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam, MSGPIPE * msg) {
 		}
 	}
 
-	//Liberta a DLL
-	FreeLibrary(hDll);
+
 
 	//desliga a ligação com o cliente
 	FlushFileBuffers(hPipe);
@@ -243,10 +213,7 @@ void ReceiveClientMessage(HANDLE hPipe) {
 			_tprintf(TEXT("THREAD - Erro no ReadFile\n"));
 	}
 
-	if (comando(pchRequest) == TRUE) {
-		_tprintf(TEXT("THREAD - Cliente é o primeiro\n"));
-		_tcscpy(pchReply, TEXT("sim"));
-	}
+
 
 	_tprintf(TEXT("Receive - MENSAGEM: %s\n"), pchReply);
 	SendClientMessage(hPipe, pchReply);
@@ -272,54 +239,24 @@ void SendClientMessage(HANDLE hPipe, TCHAR * message) {
 	}
 }
 
-void ConfigureDLLFunctions() {
-
-	//Faz a ligação há dll
-	hDll = LoadLibrary(TEXT("DLL.dll"));
-
-	if (hDll == NULL) {
-		_tprintf(TEXT("Erro a encontrar a DLL!\n "));
-		return TRUE;
-	}
-
-	//Cria ponteiro para aceder á função
-	comando = (BOOL(*)(TCHAR[])) GetProcAddress(hDll, "verificaComando");
-	addPlayer = (BOOL(*)(TCHAR[])) GetProcAddress(hDll, "adicionaJogador");
-	verificaJogadores = (int(*)()) GetProcAddress(hDll, "verificaJogadores");
-	configureGame = (void(*)()) GetProcAddress(hDll, "configuraJogo");
-
-	if (comando == NULL) {
-		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
-		return TRUE;
-	}
-
-	if (addPlayer == NULL) {
-		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
-		return TRUE;
-	}
-
-	if (verificaJogadores == NULL) {
-		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
-		return TRUE;
-	}
-
-	if (configureGame == NULL) {
-		_tprintf(TEXT("Erro a criar o ponteiro para a função --ConfigureGame--! \n, erro: %d"), GetLastError());
-		return TRUE;
-	}
-}
 
 
 
-MSGPIPE *iniciaMenssagem(MSGPIPE *msg) {
+
+MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg) {
+
 
 	GAME *auxGame = (GAME*)malloc(sizeof(GAME));
 	PLAYER *auxPalyer = (PLAYER*)malloc(sizeof(PLAYER));
 	MAP *auxMap = (MAP*)malloc(sizeof(MAP));
 
 	auxGame->gameExist = FALSE;
-	//TODO: ver como é o mapa com o FOCA 
 
+	//TODO: ver como é o mapa com o FOCA 
+	msg->hPipe = INVALID_HANDLE_VALUE;
+	msg->lpszPipename = TEXT("\\\\.\\pipe\\pipeSnake");
+	msg->dwThreadID = 0;
+	msg->hThread = 0;
 	msg->game = auxGame;
 	msg->map = auxMap;
 	msg->player = auxPalyer;

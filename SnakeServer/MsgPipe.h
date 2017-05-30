@@ -1,16 +1,18 @@
 #pragma once
 #include "Estruturas.h"
-
+//SERVIDOR
 
 typedef struct {
 	GAME *game;
-
 	MAP *map;
 	PLAYER *player;
+	HANDLE hPipe;
+	HANDLE  hThread;
+	DWORD dwThreadID;
+	LPTSTR lpszPipename;
+}MSGPIPESERVIDOR;
 
-}MSGPIPE;
-
-void inicialMap(MSGPIPE * msgpipe, MAP * map);
+void inicialMap(MSGPIPESERVIDOR * msgpipe, MAP * map);
 
 boolean checkPos(int x, int y, MAP * map);
 

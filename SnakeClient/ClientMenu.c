@@ -1,8 +1,16 @@
+#include <windows.h>
+#include <tchar.h>
+#include <io.h>
+#include <fcntl.h>
+#include <stdio.h>
 #include "ClientMenu.h"
 
 
-MSGPIPE *mainMenu(MSGPIPE *msg) {
-
+MSGPIPECLIENTE *menuPrincipal(MSGPIPECLIENTE *msg) {
+#ifdef UNICODE
+	_setmode(_fileno(stdin), _O_WTEXT);
+	_setmode(_fileno(stdout), _O_WTEXT);
+#endif
 	int v = 0;
 
 	_tprintf(TEXT("BEM VINDO\n"));
@@ -10,7 +18,7 @@ MSGPIPE *mainMenu(MSGPIPE *msg) {
 	_tprintf(TEXT("\t\tSingle Player\t-1-\n"));
 	_tprintf(TEXT("\t\tMultiPlayer\t-2-\n"));
 	do {
-		_tscanf(" %d", &v);
+		_tscanf_s(TEXT("%d"), &v);
 	} while (v != 1 || v != 2);
 
 	if (v == 1) {
@@ -23,7 +31,7 @@ MSGPIPE *mainMenu(MSGPIPE *msg) {
 	return msg;
 }
 
-MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg) {
+MSGPIPECLIENTE* menuSettingUpGame(int requestCode, MSGPIPECLIENTE *msg) {
 
 	GAME * auxGame = (GAME *)malloc(sizeof(GAME));
 
@@ -35,37 +43,37 @@ MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg) {
 
 	do {
 		_tprintf(TEXT("\t\tMaximum Number of Items on the Fild (MIN 0)(MAX 10)\n"));
-		_tscanf(TEXT("%d"), &auxGame->max_number_items);
+		_tscanf_s(TEXT(" %d"), &auxGame->max_number_items);
 	} while (verifySettingRequest(1, auxGame->max_number_items));
 
 	do {
 		_tprintf(TEXT("\t\tStarting Size of the Snake (MIN 4)(MAX 30)\n"));
-		_tscanf(TEXT("%d"), &auxGame->started_snake_size);
+		_tscanf_s(TEXT(" %d"), &auxGame->started_snake_size);
 	} while (verifySettingRequest(2, auxGame->started_snake_size));
 
 	do {
 		_tprintf(TEXT("\t\Game Duration (MIN 1000)(MAX 5000)\n"));
-		_tscanf(TEXT("%d"), &auxGame->game_duration);
+		_tscanf_s(TEXT(" %d"), &auxGame->game_duration);
 	} while (verifySettingRequest(3, auxGame->game_duration));
 
 	do {
 		_tprintf(TEXT("\t\tProbability of rare Items to Spawn (MIN 0)(MAX 100)\n"));
-		_tscanf(TEXT("%f"), &auxGame->probability_rare_items);
+		_tscanf_s(TEXT(" %f"), &auxGame->probability_rare_items);
 	} while (verifySettingRequest(4, auxGame->probability_rare_items));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Enemy Snakes (MIN 0)(MAX 5)\n"));
-		_tscanf(TEXT("%d"), &auxGame->number_ai_snakes);
+		_tscanf_s(TEXT(" %d"), &auxGame->number_ai_snakes);
 	} while (verifySettingRequest(5, auxGame->number_ai_snakes));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Horizontal Tilles (MIN 10)(MAX 80)\n"));
-		_tscanf(TEXT("%d"), &auxGame->horizontal_sizeX);
+		_tscanf_s(TEXT(" %d"), &auxGame->horizontal_sizeX);
 	} while (verifySettingRequest(6, auxGame->number_ai_snakes));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Vertical Tilles (MIN 5)(MAX 40)\n"));
-		_tscanf(TEXT("%d"), &auxGame->vertical_sizeY);
+		_tscanf_s(TEXT(" %d"), &auxGame->vertical_sizeY);
 	} while (verifySettingRequest(7, auxGame->vertical_sizeY));
 
 
@@ -76,7 +84,7 @@ MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg) {
 	if (requestCode == 2) {
 		do {
 			_tprintf(TEXT("\t\tMaximum number of players (MIN 2)(MAX 20)\n"));
-			_tscanf(TEXT("%d"), &auxGame->number_players);
+			_tscanf_s(TEXT("%d"), &auxGame->number_players);
 		} while (verifySettingRequest(8, auxGame->number_players));
 	}
 
@@ -86,7 +94,7 @@ MSGPIPE* menuSettingUpGame(int requestCode, MSGPIPE *msg) {
 	return msg;
 }
 
-MSGPIPE *menuMultiplayer1( MSGPIPE * msg) {
+MSGPIPECLIENTE *menuMultiplayer1(MSGPIPECLIENTE * msg) {
 	int v = 0;
 	int d = 0;
 	_tprintf(TEXT("Multiplayer\n"));
@@ -115,19 +123,19 @@ MSGPIPE *menuMultiplayer1( MSGPIPE * msg) {
 
 }
 
-MSGPIPE *createPlayer(MSGPIPE *msg) {
+MSGPIPECLIENTE *createPlayer(MSGPIPECLIENTE *msg) {
 	PLAYER *auxPlayer = (PLAYER*)malloc(sizeof(PLAYER));
 	int v = 0;
 
 	_tprintf(TEXT("Creating Player\n"));
 
 	_tprintf(TEXT("\t\tPlayer Name\n"));
-	_tscanf(TEXT("%s"), &auxPlayer->player_name);
+	_tscanf_s(TEXT(" %s"), &auxPlayer->player_name);
 
 
 
 	_tprintf(TEXT("\t\tUse Default Keys to control the snake ? (1-YES) (2-NO)\n"));
-	_tscanf(TEXT("%d"), &v);
+	_tscanf_s(TEXT(" %d"), &v);
 	if (v == 1) {
 		auxPlayer->down_key = KEY_DOWN;
 		auxPlayer->left_key = KEY_LEFT;
@@ -199,7 +207,7 @@ BOOLEAN	verifySettingRequest(int request, int valueToVerify) {
 
 }
 
-MSGPIPE *defineNewKeys(MSGPIPE *msg) {
+MSGPIPECLIENTE *defineNewKeys(MSGPIPECLIENTE *msg) {
 	BOOLEAN v = FALSE;
 	int c = 0;
 	char up;
@@ -217,7 +225,7 @@ MSGPIPE *defineNewKeys(MSGPIPE *msg) {
 		}
 	} while (v != TRUE);
 	v = FALSE;
-	int c = 0;
+	
 	do {
 		_tprintf(TEXT("insert key to go RIGHT\n"));
 		_tscanf(TEXT("%c"), &right);
@@ -229,7 +237,7 @@ MSGPIPE *defineNewKeys(MSGPIPE *msg) {
 		}
 	} while (v != TRUE);
 	v = FALSE;
-	int c = 0;
+
 	do {
 		_tprintf(TEXT("insert key to go DOWN\n"));
 		_tscanf(TEXT("%c"), &down);
@@ -241,7 +249,7 @@ MSGPIPE *defineNewKeys(MSGPIPE *msg) {
 		}
 	} while (v != TRUE);
 	v = FALSE;
-	int c = 0;
+
 	do {
 		_tprintf(TEXT("insert key to go LEFT\n"));
 		_tscanf(TEXT("%c"), &left);

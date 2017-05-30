@@ -1,10 +1,16 @@
-#include "ClientMenu.h"
-
+#include <windows.h>
+#include <tchar.h>
+#include <io.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include "menus.h"
+#include "MsgPipe.h"
 #define BUFSIZE 4096
 
 //Cabeçalho das funções
 bool verifyIfFirst(HANDLE hPipe, TCHAR * p);
-
+//MSGPIPECLIENTE *menuPrincipal(MSGPIPECLIENTE *msg);
+MSGPIPECLIENTE *iniciaMenssagem(MSGPIPECLIENTE *msg);
 
 int _tmain(int argc, TCHAR *argv[]) {
 
@@ -19,7 +25,10 @@ int _tmain(int argc, TCHAR *argv[]) {
 	BOOL fSucess = FALSE;
 	DWORD cbRead, cbToWrite, cbWritten, dwMode;
 	LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\pipeSnake");
-
+	MSGPIPECLIENTE *msg = (MSGPIPECLIENTE*)malloc(sizeof(MSGPIPECLIENTE));
+	
+	msg = iniciaMenssagem(msg);
+	
 	if (!WaitNamedPipe(lpszPipename, NMPWAIT_WAIT_FOREVER)) {
 		_tprintf(TEXT("[Information] Connecting.. '%s'\n"), lpszPipename);
 		exit(-1);
@@ -70,11 +79,32 @@ int _tmain(int argc, TCHAR *argv[]) {
 		return -1;
 	}
 
-	//Verifica se o Servidor já tem algum Cliente Registado
-	if (verifyIfFirst(hPipe, TEXT("first")) == true) {
-		//Configura a partida se for o primeiro Cliente
-		startMenus(hPipe);
+
+
+	
+
+	msg = menuPrincipal(msg);
+
+
+	fSucess = WriteFile(
+		hPipe, //handle do pipe
+		msg, //mensagem
+		sizeof(MSGPIPECLIENTE), //comprimento da mensagem
+		&cbWritten, //ptr para guardar numero de bytes escritos
+		NULL);
+
+	if (!fSucess) {
+		_tprintf(TEXT("WriteFile Falhou. Erro = %d\n"), GetLastError());
+		return -1;
 	}
+
+	_tprintf(TEXT("Jogo configurado, a aguardar resposta por parte do servidor!\n\n"));
+
+	//Verifica se o Servidor já tem algum Cliente Registado
+	//if (verifyIfFirst(hPipe, TEXT("first")) == true) {
+	//	//Configura a partida se for o primeiro Cliente
+
+	//}
 
 	//Configura os botões com o quais vai jogar
 	//
@@ -135,26 +165,6 @@ int _tmain(int argc, TCHAR *argv[]) {
 	return 0;
 }
 
-//Fazer a verificação dos dados pedidos, se o utilizador exceder os valores utilizar os valores default presentes no DEFINE no .h
-int startMenus(HANDLE hPipe) {
-	BOOL fSucess = FALSE;
-	DWORD cbToWrite, cbWritten;
-	MSGPIPE *msg = (MSGPIPE*)malloc(sizeof(MSGPIPE));
-	msg = mainMenu(msg);
-	fSucess = WriteFile(
-		hPipe, //handle do pipe
-		msg, //mensagem
-		sizeof(MSGPIPE), //comprimento da mensagem
-		&cbWritten, //ptr para guardar numero de bytes escritos
-		NULL);
-
-	if (!fSucess) {
-		_tprintf(TEXT("WriteFile Falhou. Erro = %d\n"), GetLastError());
-		return -1;
-	}
-
-	_tprintf(TEXT("Jogo configurado, a aguardar resposta por parte do servidor!\n\n"));
-}
 
 bool verifyIfFirst(HANDLE hPipe, TCHAR * p) {
 	TCHAR chBuf[BUFSIZE];
@@ -208,4 +218,47 @@ bool verifyIfFirst(HANDLE hPipe, TCHAR * p) {
 }
 
 
+MSGPIPECLIENTE *iniciaMenssagem(MSGPIPECLIENTE *msg) {
 
+
+	GAME *auxGame = (GAME*)malloc(sizeof(GAME));
+	PLAYER *auxPalyer = (PLAYER*)malloc(sizeof(PLAYER));
+	MAP *auxMap = (MAP*)malloc(sizeof(MAP));
+
+	auxGame->gameExist = FALSE;
+
+	//TODO: ver como é o mapa com o FOCA 
+	msg->hPipe = INVALID_HANDLE_VALUE;
+	msg->lpszPipename = TEXT("\\\\.\\pipe\\pipeSnake");
+	msg->dwThreadID = 0;
+	msg->hThread = 0;
+	msg->game = auxGame;
+	msg->map = auxMap;
+	msg->player = auxPalyer;
+
+	return msg;
+
+}
+//MSGPIPECLIENTE *menuPrincipal(MSGPIPECLIENTE *msg) {
+//
+//	int v = 0;
+//
+//	_tprintf(TEXT("BEM VINDO\n"));
+//do {
+//	_tprintf(TEXT("\t\tSingle Player\t-1-\n"));
+//	_tprintf(TEXT("\t\tMultiPlayer\t-2-\n"));
+//	
+//	_tscanf_s(TEXT("%d"), &v);
+//	} while (v != 1 && v != 2);
+//
+//	if (v == 1) {
+//	//	msg = menuSettingUpGame(1, msg);
+//		_tprintf(TEXT("OI\n"));
+//	}
+//	else if (v == 2) {
+//		_tprintf(TEXT("XAU\n"));
+//		//msg = menuMultiplayer1(msg);
+//	}
+//
+//	return msg;
+//}

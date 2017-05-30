@@ -1,31 +1,32 @@
 #include "MsgPipe.h"
 #pragma once
 
-void inicialMap(MSGPIPE * msgpipe, MAP * map)
+void inicialMap(MSGPIPESERVIDOR * msgpipe, MAP * map)
 {
-	map->height = msgpipe->map.height;
-	map->width = msgpipe->map.width;
+	map->height = msgpipe->map->height;
+	map->width = msgpipe->map->width;
 	
 	for (int i = 0; i <= map->width; i++) {
 		for (int j = 0; j <= map->height; j++) {
-			msgpipe->map.tiles[i][j] = 0;
+			msgpipe->map->tiles[i][j] = 0;
+			
 		}
 	}
 
-	map->tiles = msgpipe->map.tiles;
+	map->tiles = msgpipe->map->tiles;
 
 }
 
 boolean checkPos(int x, int y, MAP * map)
 {
 	if(map->tiles[x][y] != 0)
-		return true;
-	return false;
+		return TRUE;
+	return FALSE;
 }
 
 void setItem(int item, int x, int y, MAP * map)
 {
-	map->tiles[x][y] == item;
+	map->tiles[x][y] = item;
 }
 
 int getposX(int pos, MAP * map)
