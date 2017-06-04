@@ -8,10 +8,18 @@
 #define BUFSIZE 4096
 #define kBufferSize 512
 
+//DLL 
+HINSTANCE hDll;
+BOOL(*sharedMemory)(void); //Função que incializa a memoria partilhada
+BOOL(*command)(TCHAR[]); //Testa os comandos enviados pelo cliente
+BOOL(*addPlayer)(TCHAR[]); //Adiciona um jogador á partida
+int(*player)(); //Verifica os o nome e o numero de jogadores inscritos na partida
+void(*configureGame)(MSGPIPESERVIDOR * msg); //Envia a estrutura de dados que contem todas as informações referentes á partida
 MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg);
 DWORD WINAPI ThreadAtendeCliente(LPVOID lpvParam);
 void SendClientMessage(HANDLE hPipe, TCHAR * message);
 void ReceiveClientMessage(HANDLE hPipe);
+
 
 int _tmain(int argc, TCHAR *argv[]) {
 	BOOL fConnected = FALSE;
@@ -20,8 +28,28 @@ int _tmain(int argc, TCHAR *argv[]) {
 	_setmode(_fileno(stdin), _O_WTEXT);
 	_setmode(_fileno(stdout), _O_WTEXT);
 #endif
+	//Faz a ligação há dll
+	hDll = LoadLibrary(TEXT("SnakeDLL.dll"));
+
+	if (hDll == NULL) {
+		_tprintf(TEXT("Erro a encontrar a DLL!\n "));
+		return TRUE;
+	}
+
+	//Cria ponteiro para aceder á função
+	sharedMemory = (BOOL(*)(void)) GetProcAddress(hDll, "SharedMemmoryInicializer");
+
+	if (sharedMemory == NULL) {
+		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
+		return TRUE;
+	}
+
+	//Cria a memória partilhada 
+	sharedMemory();
+
 
 	MSGPIPESERVIDOR *msg = (MSGPIPESERVIDOR*)malloc(sizeof(MSGPIPESERVIDOR));
+
 	msg = iniciaMenssagem(msg);
 
 	while (TRUE) {
@@ -239,10 +267,6 @@ void SendClientMessage(HANDLE hPipe, TCHAR * message) {
 	}
 }
 
-
-
-
-
 MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg) {
 
 
@@ -252,7 +276,6 @@ MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg) {
 
 	auxGame->gameExist = FALSE;
 
-	//TODO: ver como é o mapa com o FOCA 
 	msg->hPipe = INVALID_HANDLE_VALUE;
 	msg->lpszPipename = TEXT("\\\\.\\pipe\\pipeSnake");
 	msg->dwThreadID = 0;
@@ -263,4 +286,41 @@ MSGPIPESERVIDOR *iniciaMenssagem(MSGPIPESERVIDOR *msg) {
 
 	return msg;
 
+}
+
+BOOL ConfigureDLLFunctions() {
+
+	//Faz a ligação há dll
+	hDll = LoadLibrary(TEXT("DLL.dll"));
+
+	if (hDll == NULL) {
+		_tprintf(TEXT("Erro a encontrar a DLL!\n "));
+		return TRUE;
+	}
+	
+	//Cria ponteiro para aceder á função
+	command = (BOOL(*)(TCHAR[])) GetProcAddress(hDll, "CommandVerifier");
+	addPlayer = (BOOL(*)(TCHAR[])) GetProcAddress(hDll, "PlayerAdder");
+	player = (int(*)()) GetProcAddress(hDll, "PlayerList");
+	configureGame = (void(*)(MSGPIPESERVIDOR  * msgpipe)) GetProcAddress(hDll, "GameConfigurer");
+
+	if (command == NULL) {
+		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
+		return TRUE;
+	}
+
+	if (addPlayer == NULL) {
+		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
+		return TRUE;
+	}
+
+	if (player == NULL) {
+		_tprintf(TEXT("Erro a criar o ponteiro para a função!\n, erro: %d"), GetLastError());
+		return TRUE;
+	}
+
+	if (configureGame == NULL) {
+		_tprintf(TEXT("Erro a criar o ponteiro para a função --ConfigureGame--! \n, erro: %d"), GetLastError());
+		return TRUE;
+	}
 }

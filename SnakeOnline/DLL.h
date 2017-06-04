@@ -6,15 +6,12 @@
 #include <string.h>
 #include <tchar.h>
 #include <memory.h> 
-#include "..\SnakeServer\Estruturas.h"
+#include "Estruturas.h"
+#include "..\SnakeServer\MsgPipe.h"
 
 #define SHMEMSIZE 4096
 #define GAMEBUFSIZE sizeof(GAME)
-typedef struct _ControlDataServer {
-	HANDLE hMapFile;
-	GAME * gameBuf;
-	int ThreadDeveContinuar;
-}ContrDataServer;
+
 #ifdef SNAKE_API  
 #define SNAKE_API __declspec(dllexport)   
 #else  
@@ -26,5 +23,15 @@ extern "C"
 {
 
 	TCHAR szNAME[] = TEXT("fmMsgSpace");
-	SNAKE_API unsigned createSharedMemory(ContrDataServer cdata);
+	//Variável global da DLL
+	extern SNAKE_API int nDLL;
+
+	//Funções a serem exportadas/importadas
+	SNAKE_API BOOL CommandVerifier(TCHAR comando[]);
+	SNAKE_API BOOL SharedMemmoryInicializer();
+	SNAKE_API BOOL SharedMemmoryCloser();
+	SNAKE_API BOOL PlayerAdder(TCHAR nome[]);
+	SNAKE_API int PlayerList();
+	SNAKE_API void GameConfigurer(MSGPIPESERVIDOR  msgpipe);
+
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Estruturas.h"
+#include "../SnakeOnline/Estruturas.h"
 //SERVIDOR
 
 typedef struct {
@@ -12,14 +12,14 @@ typedef struct {
 	LPTSTR lpszPipename;
 }MSGPIPESERVIDOR;
 
-void inicialMap(MSGPIPESERVIDOR * msgpipe, MAP * map);
+void inicialMap(MSGPIPESERVIDOR * msgpipe);
 
-boolean checkPos(int x, int y, MAP * map);
+boolean checkPos(DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe);
 
-void setItem(int item, int x, int y, MAP * map);
+void setItem(DWORD item, DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe);
 
-int getposX(int pos, MAP * map);
+DWORD getposX(DWORD pos, MSGPIPESERVIDOR * msgpipe);
 
-int getposY(int pos, MAP * map);
+DWORD getposY(DWORD pos, MSGPIPESERVIDOR * msgpipe);
 
-int getPos(int x, int y, MAP * map);
+DWORD getPos(DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe);

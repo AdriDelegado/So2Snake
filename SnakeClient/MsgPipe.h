@@ -1,6 +1,6 @@
 #pragma once
 //CLIENTE
-#include "Estruturas.h"
+#include "../SnakeOnline/Estruturas.h"
 
 
 typedef struct {

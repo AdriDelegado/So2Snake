@@ -69,7 +69,7 @@ MSGPIPECLIENTE* menuSettingUpGame(int requestCode, MSGPIPECLIENTE *msg) {
 	do {
 		_tprintf(TEXT("\t\tNumber of Horizontal Tilles (MIN 10)(MAX 80)\n"));
 		_tscanf_s(TEXT(" %d"), &auxGame->horizontal_sizeX);
-	} while (verifySettingRequest(6, auxGame->number_ai_snakes));
+	} while (verifySettingRequest(6, auxGame->horizontal_sizeX));
 
 	do {
 		_tprintf(TEXT("\t\tNumber of Vertical Tilles (MIN 5)(MAX 40)\n"));
@@ -84,8 +84,8 @@ MSGPIPECLIENTE* menuSettingUpGame(int requestCode, MSGPIPECLIENTE *msg) {
 	if (requestCode == 2) {
 		do {
 			_tprintf(TEXT("\t\tMaximum number of players (MIN 2)(MAX 20)\n"));
-			_tscanf_s(TEXT("%d"), &auxGame->number_players);
-		} while (verifySettingRequest(8, auxGame->number_players));
+			_tscanf_s(TEXT("%d"), &auxGame->actual_players);
+		} while (verifySettingRequest(8, auxGame->actual_players));
 	}
 
 

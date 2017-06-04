@@ -1,39 +1,31 @@
 #include "MsgPipe.h"
-#pragma once
 
-void inicialMap(MSGPIPESERVIDOR * msgpipe, MAP * map)
+void inicialMap(MSGPIPESERVIDOR * msgpipe)
 {
-	map->height = msgpipe->map->height;
-	map->width = msgpipe->map->width;
-	
-	for (int i = 0; i <= map->width; i++) {
-		for (int j = 0; j <= map->height; j++) {
+	for (int i = 0; i <= msgpipe->map->width; i++) {
+		for (int j = 0; j <= msgpipe->map->height; j++) {
 			msgpipe->map->tiles[i][j] = 0;
-			
 		}
 	}
-
-	map->tiles = msgpipe->map->tiles;
-
 }
 
-boolean checkPos(int x, int y, MAP * map)
+boolean checkPos(DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe)
 {
-	if(map->tiles[x][y] != 0)
+	if(msgpipe->map->tiles[x][y] != 0)
 		return TRUE;
 	return FALSE;
 }
 
-void setItem(int item, int x, int y, MAP * map)
+void setItem(DWORD item, DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe)
 {
-	map->tiles[x][y] = item;
+	msgpipe->map->tiles[x][y] = item;
 }
 
-int getposX(int pos, MAP * map)
+DWORD getposX(DWORD pos, MSGPIPESERVIDOR * msgpipe)
 {
-	for (int i = 0; i < map->height; i++) {
-		for (int j = 0; j < map->width; j++) {
-			if (pos == map->tiles[i][j]) {
+	for (int i = 0; i < msgpipe->map->height; i++) {
+		for (int j = 0; j < msgpipe->map->width; j++) {
+			if (pos == msgpipe->map->tiles[i][j]) {
 				return i;
 			}
 		}
@@ -41,11 +33,11 @@ int getposX(int pos, MAP * map)
 	return -1;
 }
 
-int getposY(int pos, MAP * map)
+DWORD getposY(DWORD pos, MSGPIPESERVIDOR * msgpipe)
 {
-	for (int i = 0; i < map->height; i++) {
-		for (int j = 0; j < map->width; j++) {
-			if (pos == map->tiles[i][j]) {
+	for (int i = 0; i < msgpipe->map->height; i++) {
+		for (int j = 0; j < msgpipe->map->width; j++) {
+			if (pos == msgpipe->map->tiles[i][j]) {
 				return j;
 			}
 		}
@@ -53,10 +45,10 @@ int getposY(int pos, MAP * map)
 	return -1;
 }
 
-int getPos(int x, int y, MAP * map)
+DWORD getPos(DWORD x, DWORD y, MSGPIPESERVIDOR * msgpipe)
 {
-	for (int i = 0; i < map->height; i++) {
-		for (int j = 0; j < map->width; j++) {
+	for (int i = 0; i < msgpipe->map->height; i++) {
+		for (int j = 0; j < msgpipe->map->width; j++) {
 			if (i == x && j == y) {
 				return i*j;
 			}
